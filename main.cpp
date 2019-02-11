@@ -4,6 +4,8 @@
 #include <xinput.h>
 #include <windows.h>
 
+#include <cmath>
+
 class ControllerIsNotConnectedException : public std::logic_error
 {
 public:
@@ -250,6 +252,9 @@ class ConcreteController : public Controller
 
             int x =   getState().getThumb(Right, X) / 3200;
             int y = - getState().getThumb(Right, Y) / 3200;
+            x = (x < 0 ? -1 : 1) * int(floor(pow(abs(x), 1.5)));
+            y = (y < 0 ? -1 : 1) * int(floor(pow(abs(y), 1.5)));
+//            std::cout << x << ":" << y << std::endl;
             int threshold = 1;
             if (x > threshold || y > threshold || x < -threshold || y < -threshold)
                 WINFUNCTIONS::moveCursor(x, y);
@@ -284,9 +289,9 @@ class ConcreteController : public Controller
         if (side == Right)
         {
             if (getState().getTrigger(Right) > 180)
-                WINFUNCTIONS::mouseDownRight();
+                WINFUNCTIONS::mouseDownLeft();
             else
-                WINFUNCTIONS::mouseUpRight();
+                WINFUNCTIONS::mouseUpLeft();
         }
         if (side == Left)
         {
@@ -299,39 +304,38 @@ class ConcreteController : public Controller
 
     void buttonDown(Button button)
     {
-        if (button == LeftThumb) Keyboard::downKey(Keyboard::Shift);
+        if (button == LeftThumb) Keyboard::downKey(Keyboard::Space);
+        if (button == RightThumb) Keyboard::downKey(Keyboard::T);
 
-        if (button == LeftButton) Keyboard::downKey(Keyboard::Space);
+        if (button == LeftButton) Keyboard::downKey(Keyboard::Shift);
+        if (button == RightButton) Keyboard::downKey(Keyboard::V);
 
         if (button == AButton) Keyboard::downKey(Keyboard::E);
-        if (button == BButton) Keyboard::downKey(Keyboard::R);
-        if (button == XButton) Keyboard::downKey(Keyboard::F);
-        if (button == YButton) Keyboard::downKey(Keyboard::V);
-
-        if (button == RightButton) WINFUNCTIONS::mouseDownLeft();
+        if (button == XButton) Keyboard::downKey(Keyboard::R);
     }
 
     void buttonUp(Button button)
     {
-        if (button == Menu) Keyboard::downAndUpKey(Keyboard::Tab);
+        if (button == Menu) Keyboard::downAndUpKey(Keyboard::M);
 
-        if (button == ChangeView) Keyboard::downAndUpKey(Keyboard::M);
+        if (button == ChangeView) Keyboard::downAndUpKey(Keyboard::Tab);
 
-        if (button == LeftThumb) Keyboard::upKey(Keyboard::Shift);
+        if (button == LeftThumb) Keyboard::upKey(Keyboard::Space);
+        if (button == RightThumb) Keyboard::upKey(Keyboard::T);
 
-        if (button == LeftButton) Keyboard::upKey(Keyboard::Space);
+        if (button == LeftButton) Keyboard::upKey(Keyboard::Shift);
+        if (button == RightButton) Keyboard::upKey(Keyboard::V);
 
-        if (button == DPadLeft)  Keyboard::downAndUpKey(Keyboard::Digit_1);
-        if (button == DPadUp)    Keyboard::downAndUpKey(Keyboard::Digit_2);
-        if (button == DPadRight) Keyboard::downAndUpKey(Keyboard::Digit_3);
-        if (button == DPadDown)  Keyboard::downAndUpKey(Keyboard::Digit_4);
+        if (button == DPadLeft)  Keyboard::downAndUpKey(Keyboard::P);
+        if (button == DPadRight) Keyboard::downAndUpKey(Keyboard::Q);
+        if (button == DPadUp)    WINFUNCTIONS::mouseScrollUp();
+        if (button == DPadDown)  WINFUNCTIONS::mouseScrollDown();
 
         if (button == AButton) Keyboard::upKey(Keyboard::E);
-        if (button == BButton) Keyboard::upKey(Keyboard::R);
-        if (button == XButton) Keyboard::upKey(Keyboard::F);
-        if (button == YButton) Keyboard::upKey(Keyboard::V);
+        if (button == BButton) Keyboard::downAndUpKey(Keyboard::B);
+        if (button == XButton) Keyboard::upKey(Keyboard::R);
+        if (button == YButton) Keyboard::downAndUpKey(Keyboard::H);
 
-        if (button == RightButton) WINFUNCTIONS::mouseUpLeft();
     }
 };
 

@@ -32,6 +32,9 @@ namespace WINFUNCTIONS
     void mouseDownRight();
     void mouseUpRight();
 
+    void mouseScrollUp();
+    void mouseScrollDown();
+
     void downKey(int key);
     void upKey(int key);
 }

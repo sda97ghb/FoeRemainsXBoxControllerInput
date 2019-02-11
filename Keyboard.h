@@ -8,7 +8,10 @@
 class Keyboard
 {
 public:
+    // DirectInput scan codes
+    // More info: https://gist.github.com/tracend/912308
     static const WORD A = 0x1e;
+    static const WORD B = 0x30;
     static const WORD C = 0x2e;
     static const WORD D = 0x20;
     static const WORD E = 0x12;
@@ -19,9 +22,11 @@ public:
     static const WORD K = 0x25;
     static const WORD L = 0x26;
     static const WORD M = 0x32;
+    static const WORD P = 0x19;
     static const WORD Q = 0x10;
     static const WORD R = 0x13;
     static const WORD S = 0x1f;
+    static const WORD T = 0x14;
     static const WORD U = 0x16;
     static const WORD V = 0x2f;
     static const WORD W = 0x11;

@@ -67,4 +67,14 @@ void WINFUNCTIONS::upKey(int key)
         KEYEVENTF_EXTENDEDKEY | KEYEVENTF_KEYUP, 0);
 }
 
+void WINFUNCTIONS::mouseScrollUp()
+{
+    mouse_event(MOUSEEVENTF_WHEEL, 0, 0, 120, 0);
+}
+
+void WINFUNCTIONS::mouseScrollDown()
+{
+    mouse_event(MOUSEEVENTF_WHEEL, 0, 0, -120, 0);
+}
+
 #endif // WIN32
