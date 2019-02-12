@@ -344,11 +344,16 @@ int main(int argc, char *argv[])
     (void) argc;
     (void) argv;
 
+    std::cout << "Starting FOE: REMAINS 0.7 XInput support..." << std::endl;
+
     Controller* controller;
 
     try
     {
         controller = new ConcreteController;
+
+        std::cout << "Successfully started and ready to go!" << std::endl;
+        std::cout << "Press Ctrl+C or close the window to finish this application." << std::endl;
 
         while (true)
             controller->update();
